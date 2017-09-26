@@ -16,7 +16,21 @@ Según el [artículo de infoautonomos](http://infoautonomos.eleconomista.es/fisc
 
 #### Usando las tablas de precios de servicios de alojamiento en Internet “clásicos”, es decir, que ofrezcan Virtual Private Servers o servidores físicos, y de proveedores de servicios en la nube, comparar el coste durante un año de un ordenador con un procesador estándar (escogerlo de forma que sea el mismo tipo de procesador en los dos vendedores) y con el resto de las características similares (tamaño de disco duro equivalente a transferencia de disco duro) en el caso de que la infraestructura comprada se usa sólo el 1% o el 10% del tiempo.
 
-crear tabla a partir de los datos de https://thishosting.rocks/cheap-cloud-hosting-providers-comparison/  y como nube coger aws, google, digitalocean, heroku
+| Host                                          | Precio/mes | RAM | Almacenamiento |
+|----------------------------------------|----------------|-------|-------------------------|
+| [DreamHost](https://www.dreamhost.com/
+) | 4.5$      | 512 MB      | 80 GB                    |
+| [Vult](https://www.vultr.com/)        | 2.5$      | 512 MB      | 15 GB                    |
+| [Amazon LightSail](https://amazonlightsail.com/)            | 5$   | 512 MB      | 20 GB                    |
+
+
+| Host    | Precio/hora | RAM    | 1% uso (24h) | 10% uso (72h) |
+|---------|-------------|--------|---------------|-------------------|
+| Heroku  | 0.009$      | 512 MB | 0.216$ | 0.648$ |
+| AWS EC2 | 0.0059$     | 512 MB | 1.416 | 4.248$ |
+
+En el caso de usar un VPS, se paga por mes, no por tiempo de uso de la infraestructura.
+
 
 ---
 ### Ejercicio 3
@@ -52,8 +66,12 @@ Por otra parte, mi dispositivo Android cuenta con un procesador **Snapdragon 820
 obteniendo la siguiente salida
 ![kvm-ok](https://i.imgur.com/TmDQIhA.png)
 
+---
+### Ejercicio 5
 
+####Darse de alta en servicios de nube usando ofertas gratuitas o cupones que pueda proporcionar el profesor.
 
+GitHub ofrece un [pack a estudiantes](https://education.github.com/pack) muy interesante. En mi caso me he decantado por [AWS educate](https://www.awseducate.com/)
 
 
 
