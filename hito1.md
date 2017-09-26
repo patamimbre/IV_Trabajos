@@ -39,8 +39,9 @@ Por otra parte, mi dispositivo Android cuenta con un procesador **Snapdragon 820
 
 ---
 ### Ejercicio 4
-## 1. Instalar un hipervisor para gestionar máquinas virtuales, que más adelante se podrá usar en pruebas y ejercicios. 
-## 2. Comprobar si el núcleo instalado en tu ordenador contiene este módulo del kernel usando la orden kvm-ok.
+
+#### 1. Instalar un hipervisor para gestionar máquinas virtuales, que más adelante se podrá usar en pruebas y ejercicios. 
+#### 2. Comprobar si el núcleo instalado en tu ordenador contiene este módulo del kernel usando la orden kvm-ok.
 
 
 1. Como utilizo Ubuntu, lo instalo mediante
