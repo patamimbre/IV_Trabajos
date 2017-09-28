@@ -1,4 +1,4 @@
-## Hito 1
+## Practica 1
 
 ### Ejercicio 1
 
