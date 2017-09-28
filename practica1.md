@@ -71,7 +71,10 @@ obteniendo la siguiente salida
 
 ####Darse de alta en servicios de nube usando ofertas gratuitas o cupones que pueda proporcionar el profesor.
 
-GitHub ofrece un [pack a estudiantes](https://education.github.com/pack) muy interesante. En mi caso me he decantado por [AWS educate](https://www.awseducate.com/)
+Se usará **[Heroku](https://www.heroku.com/)** con su plan gratuito, ideal para experimentar con aplicaciones en la nube. Una vez creada la cuenta se observa la siguiente pantalla de gestión.
+
+![heroku](https://i.imgur.com/fj7Qe2r.png)
+
 
 
 
