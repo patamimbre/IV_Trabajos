@@ -69,14 +69,17 @@ obteniendo la siguiente salida
 ---
 ### Ejercicio 5
 
-####Darse de alta en servicios de nube usando ofertas gratuitas o cupones que pueda proporcionar el profesor.
+#### Darse de alta en servicios de nube usando ofertas gratuitas o cupones que pueda proporcionar el profesor.
 
 Se usará **[Heroku](https://www.heroku.com/)** con su plan gratuito, ideal para experimentar con aplicaciones en la nube. Una vez creada la cuenta se observa la siguiente pantalla de gestión.
 
 ![heroku](https://i.imgur.com/fj7Qe2r.png)
 
+---
+### Ejercicio 6
 
+#### Darse de alta en una web que permita hacer pruebas con alguno de los sistemas de gestión de nube anteriores.
 
-
+Se usará **[OpenStack](https://www.openstack.org/)** como nube privada. Para demostrar que la cuenta ha sido creada, [mi perfil](https://www.openstack.org/community/members/profile/94444/germn-castro) en openstack está disponible online.
 
 
