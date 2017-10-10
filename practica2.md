@@ -56,7 +56,9 @@ Para establecerla globalmente:
 
 El programa ha sido probado en 2 versiones de Ruby: __2.3.4__ y __2.4.2__. Como se muestra a continuación, funciona correctamente en ambas versiones.
 
-![running](./ej6.png)
+![running](TDD/ej6.png)
+
+
 
 ----
 #### 7. Crear una descripción del módulo usando package.json. En caso de que se trate de otro lenguaje, usar el método correspondiente.
