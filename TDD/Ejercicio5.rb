@@ -47,7 +47,7 @@ class Empresa
 		@calificaciones.each do |alum, calificacion|
 			calificacion_media += calificacion
 		end
-		calificacion_media / (@calificaciones.size)
+		calificacion_media.to_f / (@calificaciones.size)
 
 	end
 
@@ -62,34 +62,74 @@ end
 
 
 class GestionPracticas
-	def aniade_empresa
+
+
+	@@empresas = []
+	@@alumnos = []
+
+	def self.aniade_empresa(empresa)
+		@@empresas << empresa
+	end
+
+	def self.aniade_alumno(alumno)
+		@@alumnos << alumno
+	end
+
+	def self.empresa(nombre)
+		@@empresas.find{|emp| emp.nombre == nombre}
+	end
+
+	def self.alumno(dni)
+		@@alumnos.find {|alum| alum.DNI == dni}
+	end
+
+	def self.buscar_alumnos(nombre, apellidos)
+		@@alumnos.find {|alum|
+										alum.nombre == nombre and
+										alum.apellidos == apellidos}
+	end
+
+	def self.califica (dni, nota)
+		alum = alumno(dni)
+		alum.empresa.califica(alum, nota)
+	end
+
+	def self.to_s
+		@@empresas.each do |emp|
+			emp.to_s
+		end
+	end
+
+	def self.calificacion_media(nombre_empresa)
+		empresa(nombre_empresa).calificacion_media
+	end
+
+
+
 end
 
-empresa1 = Empresa.new("GOOGLE")
-empresa2 = Empresa.new("Microsoft")
 
 
-alum1 = Alumno.new("123456Z","Rafa","Perez",empresa1)
-alum2 = Alumno.new("231512Z","Juan","Perez",empresa1)
-alum3 = Alumno.new("123446Z","Rafa","Garcia",empresa1)
+GestionPracticas.aniade_empresa(Empresa.new("GOOGLE"))
+GestionPracticas.aniade_empresa(Empresa.new("Microsoft"))
 
-alum4 = Alumno.new("222222X","Mateo","Martos",empresa2)
-alum5 = Alumno.new("333333Y","Alejandro","Rodriguez",empresa2)
-alum6 = Alumno.new("878955M","Fernando","ruiz",empresa2)
+GestionPracticas.aniade_alumno ( Alumno.new("123456Z","Rafa","Perez",GestionPracticas.empresa("Google")))
+GestionPracticas.aniade_alumno ( Alumno.new("231512Z","Juan","Perez",GestionPracticas.empresa("Google")))
+GestionPracticas.aniade_alumno ( Alumno.new("123446Z","Rafa","Garcia",GestionPracticas.empresa("Google")))
+
+GestionPracticas.aniade_alumno ( Alumno.new("222222X","Mateo","Martos",GestionPracticas.empresa("Microsoft")))
+GestionPracticas.aniade_alumno ( Alumno.new("333333Y","Alejandro","Rodriguez",GestionPracticas.empresa("Microsoft")))
+GestionPracticas.aniade_alumno ( Alumno.new("878955M","Fernando","ruiz",GestionPracticas.empresa("Microsoft")))
 
 
+#reparar esto!!
+GestionPracticas.califica('123456Z', 8)
+GestionPracticas.califica('231512Z', 9)
+GestionPracticas.califica('123446Z', 2)
+puts "Calificación media Google: " + GestionPracticas.calificacion_media("Google").to_s
 
-empresa1.califica(alum1, 8)
-empresa1.califica(alum2, 9)
-empresa1.califica(alum3, 1)
-empresa1.califica(alum4, 56)
-empresa1.print
-puts "Calificación media: " + empresa1.calificacion_media.to_s
-
-empresa2.califica(alum3, 8)
-empresa2.califica(alum4, 9)
-empresa2.califica(alum5, 6)
-empresa2.califica(alum6, 7)
-empresa2.print
-puts "Calificación media: " + empresa2.calificacion_media.to_s
+GestionPracticas.califica('222222X', 4)
+GestionPracticas.califica('333333Y', 1)
+GestionPracticas.califica('878955M', 6)
+puts "Calificación media Microsoft: " + GestionPracticas.calificacion_media("Microsoft").to_s
 

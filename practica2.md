@@ -3,6 +3,8 @@ TDD: Desarrollo basado en pruebas
 
 #### 1. Hacer un pull request a este proyecto con tests adicionales, si es que faltan (en el momento que se lea este tema)
 
+[https://github.com/patamimbre/HitosIV](Enlace) al repositorio forkeado
+
 ----
 #### 2. Para la aplicación que se está haciendo, escribir una serie de aserciones y probar que efectivamente no fallan. Añadir tests para una nueva funcionalidad, probar que falla y escribir el código para que no lo haga (vamos, lo que viene siendo TDD).
 
@@ -11,6 +13,32 @@ TDD: Desarrollo basado en pruebas
 
 ----
 #### 4. Instalar alguno de los entornos virtuales de node.js (o de cualquier otro lenguaje con el que se esté familiarizado) y, con ellos, instalar la última versión existente, la versión minor más actual de la 4.x y lo mismo para la 0.11 o alguna impar (de desarrollo).
+
+Procederé a instalar **[rbenv](https://github.com/rbenv/rbenv)** como entorno virtual de desarrollo. Como usuario de Arch Linux, basta con ejecutar el siguiente comando para instalarlo:
+
+` yaourt -S rbenv ruby-build `
+
+Se pueden listar las versiones disponibles para la instalación mediante
+
+`rbenv install -l`
+
+Una vez se decida la versión deseada, [se instalará](https://wiki.archlinux.org/index.php/Rbenv) mediante:
+
+` CC=/usr/bin/gcc-5; PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig; rbenv install <version>`
+
+Para establecer la versión de Ruby en una aplicación local específica:
+
+`rbenv local <version>`
+
+Para establecerla globalmente:
+
+`rbenv global <version>` 
+
+
+
+
+
+
 
 ----
 #### 5. Como ejercicio, algo ligeramente diferente: una web para calificar las empresas en las que hacen prácticas los alumnos. Las acciones serían
