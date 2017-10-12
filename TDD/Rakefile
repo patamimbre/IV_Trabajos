@@ -1,0 +1,7 @@
+desc "Test class IP"
+
+task default: %w[test]
+
+task :test do
+	ruby "IP_test.rb"
+end
