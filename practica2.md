@@ -8,8 +8,12 @@ TDD: Desarrollo basado en pruebas
 ----
 #### 2. Para la aplicación que se está haciendo, escribir una serie de aserciones y probar que efectivamente no fallan. Añadir tests para una nueva funcionalidad, probar que falla y escribir el código para que no lo haga (vamos, lo que viene siendo TDD).
 
+Dentro de TDD está un ejemplo de programa ([IP.rb](./TDD/IP.rb)) y el test correspondiente ([IP_test.rb](./TDD/IP_test.rb))
+
 ----
 #### 3. Convertir los tests unitarios anteriores con assert a programas de test y ejecutarlos desde mocha, usando descripciones del test y del grupo de test de forma correcta. Si hasta ahora no has subido el código que has venido realizando a GitHub, es el momento de hacerlo, porque lo vas a necesitar un poco más adelante.
+
+El proceso se ha realizado directamente en el proyecto de la asignatura. Se encuentra en la carpeta **spec**.
 
 ----
 #### 4. Instalar alguno de los entornos virtuales de node.js (o de cualquier otro lenguaje con el que se esté familiarizado) y, con ellos, instalar la última versión existente, la versión minor más actual de la 4.x y lo mismo para la 0.11 o alguna impar (de desarrollo).
@@ -63,8 +67,30 @@ El programa ha sido probado en 2 versiones de Ruby: __2.3.4__ y __2.4.2__. Como 
 ----
 #### 7. Crear una descripción del módulo usando package.json. En caso de que se trate de otro lenguaje, usar el método correspondiente.
 
+Al estar programado en Ruby se ha realizado mediante Bundle con un archivo **Gemfile**, donde aparecen las dependencias del programa. Para instalarlas, lanzar bundle en el mismo directorio donde se encuentra el *Gemfile*
+
+`bundle install`
+
 ----
 #### 8. Automatizar con grunt, gulp u otra herramienta de gestión de tareas en Node la generación de documentación de la librería que se cree usando docco u otro sistema similar de generación de documentación. Previamente, por supuesto, habrá que documentar tal librería.
+
+En ruby se emplea [Rake](https://github.com/ruby/rake) para gestionar las tareas. Para instalar rake:
+
+`gem install rake`
+
+A continuación se debe crear un archivo Rakefile y añadir aquellas tareas a realizar. Un ejemplo puede ser el que sigue 
+
+``` ruby
+desc "Test class IP"
+
+task default: %w[test]
+
+task :test do
+	ruby "IP_test.rb"
+end
+```
+
+El archivo Rakefile que genera la documentación se implementará sobre el proyecto, por lo que estará en el correspondiente repositorio
 
 ----
 #### 9. Haced los dos primeros pasos antes de pasar al tercero.
