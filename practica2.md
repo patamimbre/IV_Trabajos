@@ -95,3 +95,4 @@ El archivo Rakefile que genera la documentación se implementará sobre el proye
 ----
 #### 9. Haced los dos primeros pasos antes de pasar al tercero.
 
+Se ha realizado sobre el propio proyecto 
