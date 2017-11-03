@@ -98,3 +98,148 @@ Tras esto, se puede ver como la aplicación funciona correctamente y de forma ex
 
 ![upload](paas/upload.png)
 
+
+
+#### 4. Crear pruebas para las diferentes rutas de la aplicación
+
+A la hora de realizar el ejercicio, he desarrollado el API REST de mi proyecto, por lo que será utilizado a partir de ahora. A falta del despliegue de la BD por parte de mi compañero, muestro la funcionalidad básica de este, definiendo las rutas. 
+
+``` ruby
+require 'sinatra'
+
+get '/' do
+  {'status' => 'ok',
+   'ejemplo' =>
+       {'ruta' => "/search/CVE-test",
+        'valor' => {'status'=>'bad_id'}.to_json
+       }}.to_json
+end
+
+get '/search/:id' do |id|
+  if id !~ /\ACVE-\d{4}-\d{4}\z/
+    {'status' => 'bad_id'}.to_json
+
+  else
+
+    # buscar cve en DB y devolver json
+    "CVE -> #{id}"
+
+  end
+end
+
+get '/service/:service' do |s|
+
+  # buscar cves en db por nombre de servicio
+  "Servicio -> #{s}"
+end
+
+
+```
+
+#### 5. Instalar y echar a andar tu primera aplicación en Heroku.
+
+El primer paso, antes de ser desplegada, es **crear el spec y rake** correspondiente a aplicación desarrollada. Puesto que no puedo testear correctamente los *json* recibidos, únicamente se comprobará que la ruta devuelva un *status 200 OK*
+
+```ruby
+# spec/api_rest_spec.rb
+
+require 'rspec'
+require 'rack/test'
+require File.expand_path '../../lib/api_rest.rb', __FILE__
+
+describe "API REST" do
+
+  include Rack::Test::Methods
+La aplicación se encuentra preparada para ser desplegada. 
+  def app
+    Sinatra::Application
+  end
+
+  context "GET to /" do
+
+    it "displays json test"
+
+    it "returns status 200 OK" do
+      get '/'
+      expect(last_response).to be_ok
+    end
+  end
+
+  context "GET to /search/:id" do
+
+    it "returns status 200 OK" do
+      get '/search/CVE-2009-3800'
+      expect(last_response).to be_ok
+    end
+
+    it "displays cve info"
+  end
+
+  context "GET to /service/:service" do
+
+    it "returns status 200 OK" do
+      get '/service/asd'
+      expect(last_response).to be_ok
+    end
+
+    it "displays cves of service"
+  end
+
+
+end
+```
+
+
+
+La aplicación se encuentra preparada para ser desplegada. Anteriormente ya se desplegó la aplicación de ejemplo. En este caso lo realizaré para la aplicación desarrollada para el proyecto. Para el desarrollo de este ejercicio me he basado en la [guía de sitepoint.com](https://www.sitepoint.com/get-started-with-sinatra-on-heroku/)
+
+`heroku login`
+
+`heroku createc`
+
+A continuación se debe crear **config.ru** y añadir:
+
+``` ruby
+require './lib/api_rest.rb'
+run Sinatra::Application
+```
+
+Para comprobar el buen funcionamiento basta con ejecutar 
+
+`rackup config.ru` 
+
+y acceder a la url que proporciona. En mi caso lo he hecho y funciona correctamente.
+
+También se debe crear el archivo **Procfile** con:
+
+`web: bundle exec rackup config.ru -p $PORT`
+
+
+
+#### 6. Usar como base la aplicación de ejemplo de heroku y combinarla con la aplicación en node que se ha creado anteriormente. Probarla de forma local con foreman. Al final de cada modificación, los tests tendrán que funcionar correctamente; cuando se pasen los tests, se puede volver a desplegar en heroku.
+
+Antes de realizar algún paso, se debe instalar *foreman* mediante: 
+
+`gem install foreman`
+
+Una vez instalado, se comprobará el funcionamiento en local de la aplicación:
+
+`foreman start`
+
+En mi caso funciona correctamente, como se observa a continuación
+
+![foreman_t](paas/foreman_t.png)
+
+![foreman_web](paas/foreman_w.png)
+
+Finalmente, se debe hacer hacer un push y completarlo sin obtener errores. En mi caso he obtenido un error relacionado con *Gemfile.lock*, solucionado volviendo a ejecutar *bundler install*.
+
+`git push heroku master`
+
+La app se encuentra funcionando en la url indicada tras hacer el push. En mi caso es [](https://lit-springs-30407.herokuapp.com/) y, como se muestra a continuación, está finalmente desplegada.
+
+![herokuapp](paas/herokuapp.png)
+
+#### 7. Haz alguna modificación a tu aplicación para Heroku, sin olvidar añadir los tests para la nueva funcionalidad, y configura el despliegue automático a Heroku usando Snap CI
+
+Puesto que Snap CI ha dejado de desarrollarse, he decidido usar **Codeship CI** para el despliegue automático.
