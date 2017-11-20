@@ -102,7 +102,7 @@ Tras esto, se puede ver como la aplicación funciona correctamente y de forma ex
 
 #### 4. Crear pruebas para las diferentes rutas de la aplicación
 
-A la hora de realizar el ejercicio, he desarrollado el API REST de mi proyecto, por lo que será utilizado a partir de ahora. A falta del despliegue de la BD por parte de mi compañero, muestro la funcionalidad básica de este, definiendo las rutas. 
+A la hora de realizar el ejercicio, he desarrollado el API REST enfocado a mi proyecto. A falta del despliegue de la BD por parte de mi compañero, muestro la funcionalidad básica de este, definiendo las rutas. 
 
 ``` ruby
 require 'sinatra'
@@ -242,4 +242,14 @@ La app se encuentra funcionando en la url indicada tras hacer el push. En mi cas
 
 #### 7. Haz alguna modificación a tu aplicación para Heroku, sin olvidar añadir los tests para la nueva funcionalidad, y configura el despliegue automático a Heroku usando Snap CI
 
-Puesto que Snap CI ha dejado de desarrollarse, he decidido usar **Codeship CI** para el despliegue automático.
+Puesto que Snap CI ha dejado de desarrollarse, he decidido usar **Codeship CI** para el despliegue automático. En el [devcenter de Heroku](https://devcenter.heroku.com/articles/codeship) se muestra un tutorial de instalación y uso de codeship.
+
+`heroku addons:create codeship:free`
+
+`heroku addons:open codeship`
+
+A continuación se abre una página web donde configurar el proyecto, estableciendo los comandos de setup. En el caso de **Ruby** los más significativos son *rvm use 2.4.2*,*bundle install* y *bundle exec rake*
+
+Una vez configurado, se debe hacer un push a nuestro repositorio y en codeship veremos los resultados.
+
+![codeship](paas/codeship_test.png)![codeship_pass](paas/codeship_pass.png)
