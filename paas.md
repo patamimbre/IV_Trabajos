@@ -195,7 +195,7 @@ La aplicación se encuentra preparada para ser desplegada. Anteriormente ya se d
 
 `heroku login`
 
-`heroku createc`
+`heroku create`
 
 A continuación se debe crear **config.ru** y añadir:
 
