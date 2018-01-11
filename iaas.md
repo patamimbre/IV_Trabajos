@@ -32,5 +32,83 @@ Para ejecutar Vagrant con nuestro Vagrantfile basta con posicionarse en la carpe
 Si lo que queremos es conectar por ssh a la máquina basta con lanzar
 `vagrant ssh`
 
+
 ### Ansible: configuración de máquina virtual
-### Capistrano: despliegue y ejecución
+Ansible resulta realmente útil a la hora de provisionar la máquina virtual. Tras la ejecución de Vagrant, se lanzará ansible utilizando el [playbook.yml](https://github.com/patamimbre/sptorrent-api/blob/master/provision/playbook.yml) indicado.
+
+La mayoría de compañeros han realizado esta parte de forma distinta a mi. En su caso, **con Ansible han realizado las mismas instalaciones que en su Dockerfile**. Yo he ido un paso más allá, y aprovechando este fichero he decidido instalar *docker, docker-compose y mongodb* y así poder correr directamente el contenedor.
+
+```ruby
+---
+- hosts: all
+  sudo: yes
+  tasks:
+  - name: Install docker apt key
+    apt_key:
+      keyserver: hkp://ha.pool.sks-keyservers.net:80
+      id: 58118E89F3A912897C070ADBF76221572C52609D
+
+  - name: Install docker repo
+    apt_repository:
+      repo: "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
+
+  - name: Install mongodb apt key
+    apt_key:
+      keyserver: hkp://keyserver.ubuntu.com:80
+      id: EA312927
+
+  - name: Install mongodb repo
+    apt_repository:
+      repo: "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse"
+
+  - name: Install latest version of "docker" and "mongodb" ignoring "install-recommends"
+    apt:
+      name: "{{ item.name }}"
+      state: latest
+      install_recommends: no
+    with_items:
+      - { name: 'linux-image-extra-4.4.0-57-generic' }
+      - { name: 'linux-image-extra-virtual' }
+      - { name: 'docker-engine' }
+      - { name: 'python-setuptools' }
+      - { name: 'python-pkg-resources' }
+      - { name: 'python-pip' }
+      - { name: 'mongodb-org' }
+
+  - name: Upgrade pip
+    pip:
+      name: pip
+      extra_args: --upgrade
+
+  - name: Install docker-compose
+    pip:
+      name: docker-compose
+
+  - name: Start mongodb service
+    service:
+      name: mongod
+      state: started
+```
+
+
+### Fabric: despliegue de la aplicación
+
+Fabric permite desplegar de forma sencilla la aplicación mediante funciones escritas en python. Para el despliegue únicamente he necesitado 4 funciones básicas.
+1. **Install**: Instalar descargando el repositorio.
+2. **Uninstall**:Eliminar el directorio de la app.
+3. **Start**:Lanzar docker-compose.
+4. **Stop**:Detener los contenedores en ejecución.
+En el archivo [fabfile.py](https://github.com/patamimbre/sptorrent-api/blob/master/despliegue/fabfile.py) se puede encontrar el código de las cuatro funciones descritas.
+
+Para poder ejecutar un fabfile, **es necesario instalarlo** mediante
+`pip install fabric`
+
+Y ejecutar la siguiente orden en el directorio raiz del repositorio
+`fab -H vagrant@<ip> -f despliegue/fabfile.py <funcion>`
+
+Por ejemplo, para crear los contenedores y echar a andar la aplicación:
+`fab -H vagrant@floral-tree-92.westus.cloudapp.azure.com -f despliegue/fabfile.py Start`
+
+### Notas
+Vagrantfile ofrece una opción con la que abrir los puertos de nuestra máquina virtual en Azure. En mi caso no he conseguido que funcione de forma correcta, así que es necesario abrir los puertos manualmente como se muestra en la siguiente imagen.
+![puertos](./iaas/azure_ports.png)
